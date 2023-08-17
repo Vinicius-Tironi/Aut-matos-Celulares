@@ -64,8 +64,14 @@ for i in norm_crr_2:
 
 X = np.arange(0,730)
 
+X_shift = []
+for i in X:
+    j = i + 50
+    X_shift.append(j)
+
 
 plt.plot(X, y_model_ref, color = 'r')
+plt.plot(X_shift, y_model_ref, color = 'b')
 
 
 #plt.plot(X, odio_raiva_e_destruicao, color = 'r')
