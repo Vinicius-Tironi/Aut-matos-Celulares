@@ -1,4 +1,3 @@
-
 import math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -52,48 +51,73 @@ for i in norm_crr_2:
     y_model_ref.append(i)
     
 
-X = np.arange(0,730)
+X = np.arange(0,365)
 
 X_shift = []
 for i in X:
-    j = i + 10
+    j = i + 0
     X_shift.append(j)
 
 
 
-plt.plot(X, y_model_ref, color = 'r', label = 'oviposição')
-plt.plot(X_shift, y_model_ref, color = 'b', label = 'mortalidade imaturos')
-plt.gca().legend(('oviposição','mort. imaturos'))
-plt.title('Curvas Sobrepostas')
-plt.show()
-
-
-def função_sazonal_ovp(frames, phi): #, taxa_ovp):
-    #taxa_ovp = 0.4
+def função_sazonal_ovp(frames):
+    taxa_ovp = 0.4    
     Y = y_model_ref
-    nova_taxa_ovp = phi * Y[frames]
-    #print('ovp = ' , Y[frames])
-    
-    return nova_taxa_ovp
+    ovp_list = []
 
+    nova_taxa_ovp = taxa_ovp * Y[frames]
+    ovp_list.append(nova_taxa_ovp)
+                
+    return ovp_list
 
-def função_sazonal_mort(frames, mu):  #, taxa_mortalidade_IM):
-    #taxa_mortalidade_IM = 0.2
-    if frames >= 719:
-        nova_taxa_mort = 0
-        #print('m = ' , nova_taxa_mort)
+def função_sazonal_mort(frames):
+    taxa_mortalidade_IM = 0.2
+    Y = y_model_ref
+    mu_list = []
+    if frames < 719:
+        nova_taxa_mort = taxa_mortalidade_IM * Y[frames]
+        mu_list.append(nova_taxa_mort)
     else:
-        Y = y_model_ref
-        nova_taxa_mort = mu * Y[frames]
-        #print('m = ' , nova_taxa_mort)
+        nova_taxa_mort = 0
+        mu_list.append(nova_taxa_mort)
 
-    return nova_taxa_mort
-
+    return mu_list
 
 
+frames = 365
+ovp_list = []
+for i in range(0, frames):
+    ovp_list.append(função_sazonal_ovp(i))
+mu_list = []
+for i in range(0, frames):
+    mu_list.append(função_sazonal_mort(i))
 
 
+zeros_ovp = []
+for i in range(0,160):
+    zeros_ovp.append(ovp_list[230])
+ovp_shift = ovp_list[160:]
+for i in zeros_ovp:
+    ovp_shift.append(i)
 
+
+zeros_mu = []
+for i in range(0,85):
+    zeros_mu.append(ovp_list[230])
+mu_pk = mu_list[0:280]
+
+mu_shift = []
+for i in zeros_mu:
+    mu_shift.append(i)
+for i in mu_pk:
+    mu_shift.append(i)
+
+
+plt.plot(X, ovp_shift, color = 'r', label = 'oviposição')
+plt.plot(X, mu_shift, color = 'b', label = 'mortalidade imaturos')
+#plt.gca().legend(('oviposição','mort. imaturos'))
+#plt.title('Curvas Sobrepostas')
+#plt.show()
 
 
 
