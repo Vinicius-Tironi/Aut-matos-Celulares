@@ -6,7 +6,7 @@ from scipy.optimize import curve_fit
 import xlwt
 from xlwt import Workbook
 
-
+# Curvas e parâmetros
 
 df_gss = pd.read_excel(r'C:\Users\Vinicius\Documents\Vinícius\Faculdade\Iniciação Científica\Dados\Boxplots\Boxplot AC\Gaussiana\gaussIM.xlsx')
 
