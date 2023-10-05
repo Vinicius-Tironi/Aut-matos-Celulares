@@ -340,18 +340,19 @@ for i in norm_crr_2:
 
 
 ovp_shift = norm_crr_2[155:]
-for i in range(0, 1):
+for i in range(0, 35):
     ovp_shift.append(0)
 for i in norm_crr_2:
     ovp_shift.append(i)
 del ovp_shift[365:]
     
 mu_shift = []
-for i in range(0,80):
+for i in range(0,140):
     mu_shift.append(0)
 for i in norm_crr_2:
     mu_shift.append(i)
 del mu_shift[365:]
+
 
 
 #X = np.arange(0,365)
@@ -668,7 +669,7 @@ def Contador_AD(tempo, matrix1, matrix2):
     passo = 1
     
     for d in range(0, tempo, 14):    
-        IMf, ADf = anima(tempo, matrix1, matrix2)
+        IMf, ADf = anima(passo, matrix1, matrix2)
         contaAD = 0
         quantAD = []    
         
@@ -713,10 +714,12 @@ wb_AD.save('Quantidades_Adultos_Sphenophorus.xls')
 
 
 
+
 import time
 start_time = time.time()
-print("--- %s seconds ---" % (time.time() - start_time))
-
+end_time = time.time()
+execution_time = start_time - end_time
+print("Execution time:",execution_time)
 
 
 
